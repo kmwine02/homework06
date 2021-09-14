@@ -1,0 +1,9 @@
+.row {
+    border-style: solid;
+    border-color: red;
+}
+
+.column {
+    border-style: dashed;
+    border-color: blue;
+}
