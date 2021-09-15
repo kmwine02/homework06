@@ -7,3 +7,7 @@
     border-style: dashed;
     border-color: blue;
 }
+
+#daily-forecast {
+    display: block;
+}
