@@ -1,13 +1,24 @@
-.row {
-    border-style: solid;
-    border-color: red;
-}
-
-.col {
-    border-style: dashed;
-    border-color: blue;
-}
-
 #daily-forecast {
     display: block;
+}
+
+.weekly-card {
+    margin: 20px;
+    padding: 3px;
+}
+
+#heading {
+    margin-bottom: 5px;
+}
+
+#city-search {
+    margin-bottom: 5px;
+}
+
+#button-div {
+    width: auto;
+}
+
+.btn {
+    width: 100%;
 }

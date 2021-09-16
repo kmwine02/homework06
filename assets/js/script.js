@@ -6,6 +6,7 @@ var latitude;
 var longitude;
 var currentForecastEl = document.querySelector("#current-forecast");
 var weekForecastEl = document.querySelector("#week-forecast");
+var weekForecastBodyEl = document.querySelector("#weekly-forecast-header");
 
 $("#search-button").on("click", function () {
   city = $(this).siblings("#city-search").val();
@@ -52,8 +53,13 @@ function getWeather(lat, long) {
         if (!localResponse.daily.length) {
             console.log("No results");
         } else {
-            for (var i = 0; i < 6; i++) {
-                printResults(localResponse.daily[i]);
+            currentForecastEl.innerHTML = "";
+            weekForecastEl.innerHTML = "";
+            weekForecastBodyEl.innerHTML = "";
+            printDailyResults(localResponse.daily[0]);
+            for (var i = 1; i < 6; i++) {
+                printWeeklyResults(localResponse.daily[i]);
+
             }
         }
     })
@@ -63,10 +69,55 @@ function getWeather(lat, long) {
 }
 
 // add the results from the API to the page
-function printResults(resultObj) {
+function printDailyResults(resultObj) {
     console.log(resultObj);
 
+    
     var dailyCard = document.createElement("div");
     dailyCard.classList.add("card-body");
     currentForecastEl.append(dailyCard);
+
+    var dailyCardHeaderEl = document.createElement("h3");
+    var date = moment.unix(resultObj.dt).format("MM/DD/YYYY");
+    dailyCardHeaderEl.textContent = city + " (" + date + ")"; 
+
+    var weeklyCardHeader = document.createElement("h3");
+    weeklyCardHeader.textContent = "5 day forecast:";
+    weekForecastBodyEl.append(weeklyCardHeader);
+
+
+    var dailyCardContentEl = document.createElement("p");
+    dailyCardContentEl.innerHTML = "<strong>Temp:</strong> " + resultObj.temp.day +"°F"+ "<br/>";
+
+    dailyCardContentEl.innerHTML += "<strong>Wind:</strong> " + resultObj.wind_speed + " MPH" + "<br/>";
+
+    dailyCardContentEl.innerHTML += "<strong>Humidity:</strong> " + resultObj.humidity + "%" + "<br/>";
+
+    dailyCardContentEl.innerHTML += "<strong>UV Index:</strong> " + resultObj.uvi + "<br/>";
+
+    dailyCard.append(dailyCardHeaderEl, dailyCardContentEl);
+
+
+
+}
+
+function printWeeklyResults(resultObj) {
+    console.log(resultObj);
+
+    var weeklyCard = document.createElement("div");
+    weeklyCard.classList.add("card-body","weekly-card",  "card", "text-white", "bg-primary", "mb-3");
+    weekForecastEl.append(weeklyCard);
+
+    var weeklyCardHeaderEl = document.createElement("h5");
+    var date = moment.unix(resultObj.dt).format("MM/DD/YYYY");
+    weeklyCardHeaderEl.textContent = date;
+
+    var weeklyCardContentEl = document.createElement("p");
+    weeklyCardContentEl.innerHTML = "<strong>Temp:</strong> " + resultObj.temp.day + "°F" + "<br/>";
+
+    weeklyCardContentEl.innerHTML += "<strong>Wind:</strong> " + resultObj.wind_speed + " MPH" + "<br/>";
+
+    weeklyCardContentEl.innerHTML += "<strong>Humidity:</strong> " + resultObj.humidity + "%" + "<br/>";
+
+    weeklyCard.append(weeklyCardHeaderEl, weeklyCardContentEl);
 }
