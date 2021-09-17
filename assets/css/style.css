@@ -22,3 +22,26 @@
 .btn {
     width: 100%;
 }
+
+.btn-div {
+    margin: 3px;
+}
+
+#city-search-label {
+    font-weight: 400;
+}
+
+.good {
+    background-color: green;
+    display: inline;
+}
+
+.okay {
+    background-color: yellow;
+    display: inline;
+}
+
+.bad {
+    background-color: red;
+    display: inline;
+}
